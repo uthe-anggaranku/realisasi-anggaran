@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0b5cab">
   <title>Sistem Informasi Realisasi Anggaran</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2212%22%20fill%3D%22%230b66c3%22%2F%3E%0A%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M18%2023h28v5H18zm4%207h20v18H22zm-7%2018h34v5H15z%22%2F%3E%0A%3Cpath%20fill%3D%22%23dbeafe%22%20d%3D%22M26%2035h4v9h-4zm8%200h4v9h-4z%22%2F%3E%0A%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M29%2016h6v7h-6z%22%2F%3E%0A%3C%2Fsvg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%230b66c3%22/%3E%3Cpath fill=%22%23fff%22 d=%22M18 23h28v5H18zm4 7h20v18H22zm-7 18h34v5H15z%22/%3E%3Cpath fill=%22%23dbeafe%22 d=%22M26 35h4v9h-4zm8 0h4v9h-4z%22/%3E%3Cpath fill=%22%23fff%22 d=%22M29 16h6v7h-6z%22/%3E%3C/svg%3E">
 
   <style>
     *{box-sizing:border-box}
@@ -73,6 +73,73 @@
       font-weight:700;font-size:14px
     }
     .open-btn:hover{background:#0956a5}
+
+    @media(max-width:700px){
+      .topbar{height:58px;padding:0 13px}
+      .app-wrap{height:100vh}
+      .brand-title{font-size:14px}
+      .brand-subtitle{font-size:9px}
+      .brand-mark{width:36px;height:36px;font-size:19px}
+      .status{display:none}
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <main class="app-wrap">
+    <div id="loading" class="loading">
+      <div class="loading-box">
+        <div class="spinner"></div>
+        <div>Memuat aplikasi V6.2...</div>
+      </div>
+    </div>
+
+    <iframe
+      id="appFrame"
+      title="Sistem Informasi Realisasi Anggaran V6.2"
+      allow="clipboard-read; clipboard-write"
+      referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+
+    <div id="fallback" class="fallback">
+      <div class="fallback-card">
+        <div class="fallback-icon">🔐</div>
+        <h2>Aplikasi V6.2 siap digunakan</h2>
+        <p>
+          Jika aplikasi tidak dapat ditampilkan di dalam halaman ini,
+          gunakan tombol berikut untuk membuka V6.2 langsung.
+        </p>
+        <a id="openApp" class="open-btn" href="#" target="_blank" rel="noopener">
+          Buka Aplikasi V6.2
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    /*
+      ============================================================
+      KONFIGURASI
+      ============================================================
+      GANTI nilai di bawah dengan URL Web App V6.2 milik Anda.
+
+      Contoh:
+      const APP_URL = 'https://script.google.com/macros/s/XXXXXXXX/exec';
+      ============================================================
+    */
+    const APP_URL = 'https://script.google.com/macros/s/AKfycby5AAu_w9dDeZ3Cj1bb80wmmWEvqJ9gpFfJeg93SshMW0vp8gqcW8ibAn_Is4qiqxPcaA/exec';
+
+    const frame = document.getElementById('appFrame');
+    const loading = document.getElementById('loading');
+    const fallback = document.getElementById('fallback');
+    const openApp = document.getElementById('openApp');
+
+    function showFallback(){
+      loading.classList.add('hide');
+      fallback.classList.add('show');
+    }
 
     if (!APP_URL || APP_URL.includes('PASTE_URL_V6_2')) {
       showFallback();
