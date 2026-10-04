@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b5cab">
+  <title>Sistem Informasi Realisasi Anggaran</title>
+
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;background:#f4f7fb}
+    body{overflow:hidden}
+
+    .topbar{
+      height:64px;
+      background:linear-gradient(135deg,#0758a8,#0b74d1);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 22px;
+      box-shadow:0 2px 10px rgba(0,0,0,.18);
+      position:relative;
+      z-index:10
+    }
+
+    .brand{display:flex;align-items:center;gap:13px;min-width:0}
+    .brand-mark{
+      width:42px;height:42px;border-radius:10px;
+      background:rgba(255,255,255,.16);
+      display:flex;align-items:center;justify-content:center;
+      font-size:22px;border:1px solid rgba(255,255,255,.25)
+    }
+    .brand-title{font-size:17px;font-weight:700;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .brand-subtitle{font-size:11px;opacity:.9;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+    .status{
+      font-size:12px;
+      background:rgba(255,255,255,.13);
+      border:1px solid rgba(255,255,255,.22);
+      padding:8px 12px;border-radius:20px;
+      white-space:nowrap
+    }
+
+    .app-wrap{
+      position:relative;
+      width:100%;
+      height:calc(100vh - 64px);
+      background:#fff
+    }
+
+    #appFrame{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+      background:#fff
+    }
+
+    .loading{
+      position:absolute;inset:0;
+      display:flex;align-items:center;justify-content:center;
+      background:#fff;
+      z-index:5;
+      transition:opacity .25s ease
+    }
+    .loading.hide{opacity:0;pointer-events:none}
+    .loading-box{text-align:center;color:#425466}
+    .spinner{
+      width:38px;height:38px;border-radius:50%;
+      border:4px solid #dce8f5;
+      border-top-color:#0b66c3;
+      animation:spin .8s linear infinite;
+      margin:0 auto 14px
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .fallback{
+      position:absolute;inset:0;
+      display:none;
+      align-items:center;justify-content:center;
+      background:#f7f9fc;
+      z-index:4;
+      padding:25px
+    }
+    .fallback.show{display:flex}
+    .fallback-card{
+      width:min(560px,100%);
+      background:#fff;
+      border-radius:16px;
+      padding:30px;
+      box-shadow:0 10px 35px rgba(18,52,86,.12);
+      border:1px solid #e4ebf3;
+      text-align:center
+    }
+    .fallback-icon{font-size:42px;margin-bottom:10px}
+    .fallback h2{margin:0 0 10px;color:#183b56;font-size:21px}
+    .fallback p{margin:0 0 20px;color:#617386;font-size:14px;line-height:1.6}
+    .open-btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      min-width:190px;padding:12px 18px;border-radius:9px;
+      background:#0b66c3;color:#fff;text-decoration:none;
+      font-weight:700;font-size:14px
+    }
+    .open-btn:hover{background:#0956a5}
+
+    @media(max-width:700px){
+      .topbar{height:58px;padding:0 13px}
+      .app-wrap{height:calc(100vh - 58px)}
+      .brand-title{font-size:14px}
+      .brand-subtitle{font-size:9px}
+      .brand-mark{width:36px;height:36px;font-size:19px}
+      .status{display:none}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">🏛️</div>
+      <div>
+        <div class="brand-title">Sistem Informasi Realisasi Anggaran</div>
+        <div class="brand-subtitle">Dinas Koperasi dan UKM, Perindustrian dan Perdagangan Provinsi Sulawesi Barat</div>
+      </div>
+    </div>
+    <div class="status">V6.2</div>
+  </header>
+
+  <main class="app-wrap">
+    <div id="loading" class="loading">
+      <div class="loading-box">
+        <div class="spinner"></div>
+        <div>Memuat aplikasi V6.2...</div>
+      </div>
+    </div>
+
+    <iframe
+      id="appFrame"
+      title="Sistem Informasi Realisasi Anggaran V6.2"
+      allow="clipboard-read; clipboard-write"
+      referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+
+    <div id="fallback" class="fallback">
+      <div class="fallback-card">
+        <div class="fallback-icon">🔐</div>
+        <h2>Aplikasi V6.2 siap digunakan</h2>
+        <p>
+          Jika aplikasi tidak dapat ditampilkan di dalam halaman ini,
+          gunakan tombol berikut untuk membuka V6.2 langsung.
+        </p>
+        <a id="openApp" class="open-btn" href="#" target="_blank" rel="noopener">
+          Buka Aplikasi V6.2
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    /*
+      ============================================================
+      KONFIGURASI
+      ============================================================
+      GANTI nilai di bawah dengan URL Web App V6.2 milik Anda.
+
+      Contoh:
+      const APP_URL = 'https://script.google.com/macros/s/XXXXXXXX/exec';
+      ============================================================
+    */
+    const APP_URL = 'https://script.google.com/macros/s/AKfycby5AAu_w9dDeZ3Cj1bb80wmmWEvqJ9gpFfJeg93SshMW0vp8gqcW8ibAn_Is4qiqxPcaA/exec';
+
+    const frame = document.getElementById('appFrame');
+    const loading = document.getElementById('loading');
+    const fallback = document.getElementById('fallback');
+    const openApp = document.getElementById('openApp');
+
+    function showFallback(){
+      loading.classList.add('hide');
+      fallback.classList.add('show');
+    }
+
+    if (!APP_URL || APP_URL.includes('PASTE_URL_V6_2')) {
+      showFallback();
+      openApp.removeAttribute('href');
+      openApp.textContent = 'Masukkan URL V6.2 terlebih dahulu';
+      openApp.style.opacity = '.65';
+      openApp.style.pointerEvents = 'none';
+    } else {
+      openApp.href = APP_URL;
+      frame.src = APP_URL;
+
+      /*
+        iframe tidak dapat membaca isi halaman lintas-domain.
+        Karena itu kita tidak mencoba menyentuh DOM V6.2.
+        Ini menjaga V6.2 tetap utuh.
+      */
+      frame.addEventListener('load', function(){
+        loading.classList.add('hide');
+      });
+
+      /*
+        Jika browser menolak iframe karena kebijakan X-Frame-Options,
+        tombol "Buka Aplikasi V6.2" tetap tersedia.
+        Kita beri waktu beberapa detik sebelum menampilkan fallback.
+      */
+      setTimeout(function(){
+        if (!loading.classList.contains('hide')) {
+          showFallback();
+        }
+      }, 7000);
+    }
+  </script>
+</body>
+</html>
