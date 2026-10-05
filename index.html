@@ -4,11 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0b5cab">
-  <title>Sistem Informasi Realisasi Anggaran | V6.3</title>
-  <meta name="application-name" content="Sistem Informasi Realisasi Anggaran">
-  <meta name="apple-mobile-web-app-title" content="Sistem Informasi Realisasi Anggaran">
-  <meta name="description" content="Sistem Informasi Realisasi Anggaran Pemerintah Provinsi Sulawesi Barat - V6.3">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect x=%223%22 y=%223%22 width=%2258%22 height=%2258%22 rx=%2212%22 fill=%22%230b66c3%22/%3E%3Cpath fill=%22%23fff%22 d=%22M18 17h20l8 8v23H18z%22/%3E%3Cpath fill=%22%230b66c3%22 d=%22M37 17v10h9z%22/%3E%3Cpath fill=%22%230b66c3%22 d=%22M23 35h18v4H23zm0 7h12v4H23z%22/%3E%3Cpath fill=%22%230b66c3%22 d=%22M42 34l3 3 6-7 3 3-9 10-6-6z%22/%3E%3C/svg%3E">
+  <title>Sistem Informasi Realisasi Anggaran</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%230b66c3%22/%3E%3Cpath fill=%22%23fff%22 d=%22M18 23h28v5H18zm4 7h20v18H22zm-7 18h34v5H15z%22/%3E%3Cpath fill=%22%23dbeafe%22 d=%22M26 35h4v9h-4zm8 0h4v9h-4z%22/%3E%3Cpath fill=%22%23fff%22 d=%22M29 16h6v7h-6z%22/%3E%3C/svg%3E">
 
   <style>
     *{box-sizing:border-box}
@@ -48,6 +45,7 @@
     }
     @keyframes spin{to{transform:rotate(360deg)}}
 
+    /* fallback removed: GitHub remains the permanent browser address */
     .fallback{
       position:absolute;inset:0;
       display:none;
@@ -106,74 +104,32 @@
       referrerpolicy="strict-origin-when-cross-origin">
     </iframe>
 
-    <div id="fallback" class="fallback">
-      <div class="fallback-card">
-        <div class="fallback-icon">🔐</div>
-        <h2>Aplikasi V6.3 siap digunakan</h2>
-        <p>
-          Jika aplikasi tidak dapat ditampilkan di dalam halaman ini,
-          gunakan tombol berikut untuk membuka V6.3 langsung.
-        </p>
-        <a id="openApp" class="open-btn" href="#" target="_blank" rel="noopener">
-          Buka Aplikasi V6.3
-        </a>
-      </div>
-    </div>
   </main>
 
   <script>
-    /*
-      ============================================================
-      KONFIGURASI
-      ============================================================
-      GANTI nilai di bawah dengan URL Web App V6.3 milik Anda.
-
-      Contoh:
-      const APP_URL = 'https://script.google.com/macros/s/XXXXXXXX/exec';
-      ============================================================
-    */
+    /* ============================================================
+       V6.3 — GITHUB FRONT DOOR
+       Aplikasi tetap tampil di dalam GitHub Pages.
+       Browser tidak dialihkan ke script.google.com.
+       ============================================================ */
     const APP_URL = 'https://script.google.com/macros/s/AKfycby5AAu_w9dDeZ3Cj1bb80wmmWEvqJ9gpFfJeg93SshMW0vp8gqcW8ibAn_Is4qiqxPcaA/exec';
 
     const frame = document.getElementById('appFrame');
     const loading = document.getElementById('loading');
-    const fallback = document.getElementById('fallback');
-    const openApp = document.getElementById('openApp');
 
-    function showFallback(){
+    // URL aplikasi dimuat langsung ke iframe agar alamat browser
+    // tetap berada di GitHub Pages.
+    frame.src = APP_URL;
+
+    frame.addEventListener('load', function () {
       loading.classList.add('hide');
-      fallback.classList.add('show');
-    }
+    });
 
-    if (!APP_URL || APP_URL.includes('PASTE_URL_V6_3')) {
-      showFallback();
-      openApp.removeAttribute('href');
-      openApp.textContent = 'Masukkan URL V6.3 terlebih dahulu';
-      openApp.style.opacity = '.65';
-      openApp.style.pointerEvents = 'none';
-    } else {
-      openApp.href = APP_URL;
-      frame.src = APP_URL;
-
-      /*
-        iframe tidak dapat membaca isi halaman lintas-domain.
-        Karena itu kita tidak mencoba menyentuh DOM V6.3.
-        Ini menjaga V6.3 tetap utuh.
-      */
-      frame.addEventListener('load', function(){
-        loading.classList.add('hide');
-      });
-
-      /*
-        Jika browser menolak iframe karena kebijakan X-Frame-Options,
-        tombol "Buka Aplikasi V6.3" tetap tersedia.
-        Kita beri waktu beberapa detik sebelum menampilkan fallback.
-      */
-      setTimeout(function(){
-        if (!loading.classList.contains('hide')) {
-          showFallback();
-        }
-      }, 7000);
-    }
+    // Pengaman: hilangkan layar loading setelah aplikasi diberi
+    // waktu untuk tampil. Tidak ada redirect ke APP_URL.
+    setTimeout(function () {
+      loading.classList.add('hide');
+    }, 5000);
   </script>
 </body>
 </html>
