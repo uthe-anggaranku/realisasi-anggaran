@@ -92,13 +92,13 @@
     <div id="loading" class="loading">
       <div class="loading-box">
         <div class="spinner"></div>
-        <div>Memuat aplikasi V6.2...</div>
+        <div>Memuat aplikasi V6.3...</div>
       </div>
     </div>
 
     <iframe
       id="appFrame"
-      title="Sistem Informasi Realisasi Anggaran V6.2"
+      title="Sistem Informasi Realisasi Anggaran V6.3"
       allow="clipboard-read; clipboard-write"
       referrerpolicy="strict-origin-when-cross-origin">
     </iframe>
@@ -106,13 +106,13 @@
     <div id="fallback" class="fallback">
       <div class="fallback-card">
         <div class="fallback-icon">🔐</div>
-        <h2>Aplikasi V6.2 siap digunakan</h2>
+        <h2>Aplikasi V6.3 siap digunakan</h2>
         <p>
           Jika aplikasi tidak dapat ditampilkan di dalam halaman ini,
-          gunakan tombol berikut untuk membuka V6.2 langsung.
+          gunakan tombol berikut untuk membuka V6.3 langsung.
         </p>
         <a id="openApp" class="open-btn" href="#" target="_blank" rel="noopener">
-          Buka Aplikasi V6.2
+          Buka Aplikasi V6.3
         </a>
       </div>
     </div>
@@ -123,7 +123,7 @@
       ============================================================
       KONFIGURASI
       ============================================================
-      GANTI nilai di bawah dengan URL Web App V6.2 milik Anda.
+      GANTI nilai di bawah dengan URL Web App V6.3 milik Anda.
 
       Contoh:
       const APP_URL = 'https://script.google.com/macros/s/XXXXXXXX/exec';
@@ -141,10 +141,10 @@
       fallback.classList.add('show');
     }
 
-    if (!APP_URL || APP_URL.includes('PASTE_URL_V6_2')) {
+    if (!APP_URL || APP_URL.includes('PASTE_URL_V6_3')) {
       showFallback();
       openApp.removeAttribute('href');
-      openApp.textContent = 'Masukkan URL V6.2 terlebih dahulu';
+      openApp.textContent = 'Masukkan URL V6.3 terlebih dahulu';
       openApp.style.opacity = '.65';
       openApp.style.pointerEvents = 'none';
     } else {
@@ -153,7 +153,7 @@
 
       /*
         iframe tidak dapat membaca isi halaman lintas-domain.
-        Karena itu kita tidak mencoba menyentuh DOM V6.2.
+        Karena itu kita tidak mencoba menyentuh DOM V6.3.
         Ini menjaga V6.2 tetap utuh.
       */
       frame.addEventListener('load', function(){
@@ -162,7 +162,7 @@
 
       /*
         Jika browser menolak iframe karena kebijakan X-Frame-Options,
-        tombol "Buka Aplikasi V6.2" tetap tersedia.
+        tombol "Buka Aplikasi V6.3" tetap tersedia.
         Kita beri waktu beberapa detik sebelum menampilkan fallback.
       */
       setTimeout(function(){
